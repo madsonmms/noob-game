@@ -16,7 +16,7 @@ func _ready() -> void:
 			
 		initial_state.Enter()
 		current_state = initial_state
-		print_debug(current_state)
+		print_debug(initial_state)
 	
 func _process(delta):
 	if current_state:
