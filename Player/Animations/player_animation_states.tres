@@ -1,0 +1,85 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=19 format=3 uid="uid://bgk6c5ddeayb8"]
+
+[ext_resource type="AnimationNodeBlendSpace2D" uid="uid://buuejq4xfoarb" path="res://Player/Animations/player_blend_idle.tres" id="1_srdte"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x3vf3"]
+animation = &"attack_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_apopc"]
+animation = &"attack_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5htga"]
+animation = &"attack_side"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p5o4e"]
+animation = &"attack_side"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_gu6f8"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_x3vf3")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_apopc")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_5htga")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_p5o4e")
+blend_point_3/pos = Vector2(1, 0)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fhl08"]
+animation = &"run_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vtle1"]
+animation = &"run_side"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_od3ui"]
+animation = &"run_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_00tjw"]
+animation = &"run_side"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_x3vf3"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_fhl08")
+blend_point_0/pos = Vector2(0, -1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_vtle1")
+blend_point_1/pos = Vector2(1, 0.1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_od3ui")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_00tjw")
+blend_point_3/pos = Vector2(-1, 0.1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_apopc"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5htga"]
+advance_mode = 2
+advance_expression = "velocity"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p5o4e"]
+advance_mode = 2
+advance_expression = "!velocity"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_srdte"]
+advance_mode = 2
+advance_expression = "attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c8rjj"]
+advance_mode = 2
+advance_expression = "!attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_31bxw"]
+advance_mode = 2
+advance_expression = "!attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1s6rg"]
+advance_mode = 2
+advance_expression = "attacking"
+
+[resource]
+states/Attack/node = SubResource("AnimationNodeBlendSpace2D_gu6f8")
+states/Attack/position = Vector2(491, 100)
+states/Idle/node = ExtResource("1_srdte")
+states/Idle/position = Vector2(325, 100)
+states/Walk/node = SubResource("AnimationNodeBlendSpace2D_x3vf3")
+states/Walk/position = Vector2(325, 207)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_apopc"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_5htga"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_p5o4e"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_srdte"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_c8rjj"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_31bxw"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_1s6rg")]

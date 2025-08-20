@@ -1,10 +1,9 @@
 class_name StateMachine extends Node
 
+@export var actor : CharacterBody2D
 @export var initial_state : State
 var current_state : State
 var states : Dictionary = {}
-
-@export var actor : CharacterBody2D
 
 func _ready() -> void:
 	
@@ -16,7 +15,6 @@ func _ready() -> void:
 			
 		initial_state.Enter()
 		current_state = initial_state
-		print_debug(initial_state)
 	
 func _process(delta):
 	if current_state:
@@ -25,6 +23,13 @@ func _process(delta):
 func _physics_process(delta):
 	if current_state:
 		current_state.Physics_Update(delta)
+		
+func transition_to(target_state_name: String):
+	var target_state: State = get_node(target_state_name)
+	
+	current_state.Exit()
+	current_state = target_state
+	current_state.Enter()
 
 func on_child_transition(state, new_state_name):
 	if state != current_state:
