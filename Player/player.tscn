@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://dksdsj84raeik" path="res://Player/Sprites/Player.png" id="2_4ntmi"]
 [ext_resource type="Script" uid="uid://3o3yifg2orku" path="res://Player/Scripts/stats.gd" id="2_vtle1"]
 [ext_resource type="Script" uid="uid://baiyenv70sm3x" path="res://Utilities/StateMachine/state_machine.gd" id="3_k53q1"]
-[ext_resource type="AnimationNodeStateMachine" uid="uid://bgk6c5ddeayb8" path="res://Player/Animations/player_animation_states.tres" id="4_00tjw"]
 [ext_resource type="Script" uid="uid://5yv0jlfyb8l1" path="res://Player/Scripts/States/idle.gd" id="4_k53q1"]
 [ext_resource type="Script" uid="uid://d4fcl4s638pug" path="res://Player/Scripts/States/walk.gd" id="5_k53q1"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Player/Scripts/Animations/animation_handler.gd" id="5_od3ui"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://bgk6c5ddeayb8" path="res://Player/Animations/player_animation_states.tres" id="5_x3vf3"]
 [ext_resource type="Script" uid="uid://dlxkh571xwibj" path="res://Utilities/StateMachine/actor_config.gd" id="7_00tjw"]
 [ext_resource type="Script" uid="uid://bahndge2tjscc" path="res://Player/Scripts/States/attack.gd" id="10_x3vf3"]
 
@@ -226,7 +226,7 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = ExtResource("4_00tjw")
+tree_root = ExtResource("5_x3vf3")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Attack/blend_position = Vector2(0, 0)
