@@ -10,6 +10,8 @@ var attacking : bool = false
 var direction : Vector2 = Vector2.ZERO
 var last_direction : Vector2 = Vector2.DOWN
 
+signal DirectionChanged( new_dir : Vector2 )
+
 func get_input_direction() -> Vector2:
 	var dir : = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
@@ -25,3 +27,4 @@ func _physics_process(_delta: float) -> void:
 	direction = get_input_direction()
 	if direction != Vector2.ZERO:
 		last_direction = direction.normalized()
+		DirectionChanged.emit( last_direction )

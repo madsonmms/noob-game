@@ -18,8 +18,7 @@ func play( state: String, blend: Vector2 = Vector2.ZERO ) -> void:
 			actor.sprite.scale.x = 1
 	
 	animation_tree.set("parameters/%s/blend_position" % state, blend)
-	
-	var state_machine_playback = animation_tree.get("parameters/playback") as AnimationNodeStateMachinePlayback
+
 	
 	if state == "Attack":
 		var anim_length = animation_player.get_animation("attack_side").length
