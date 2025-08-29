@@ -24,3 +24,5 @@ func Physics_Update(_delta: float) -> void:
 	actor.velocity = move_direction * actor.move_speed
 	actor.move_and_slide()
 	
+	if chasing_handler(actor, player).length() < 50:
+		emit_signal("Transitioned", self, "Chasing")

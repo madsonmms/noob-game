@@ -9,7 +9,6 @@
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bgk6c5ddeayb8" path="res://Player/Animations/player_animation_states.tres" id="5_x3vf3"]
 [ext_resource type="Script" uid="uid://dlxkh571xwibj" path="res://Utilities/StateMachine/actor_config.gd" id="7_00tjw"]
 [ext_resource type="PackedScene" uid="uid://btlfg07brir8n" path="res://Utilities/Components/Health/HealthComponent.tscn" id="7_5htga"]
-[ext_resource type="Script" uid="uid://baiyenv70sm3x" path="res://Utilities/StateMachine/state_machine.gd" id="7_apopc"]
 [ext_resource type="Script" uid="uid://bahndge2tjscc" path="res://Player/Scripts/States/attack.gd" id="10_x3vf3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
@@ -194,6 +193,56 @@ _data = {
 &"run_up": SubResource("Animation_x3vf3")
 }
 
+[sub_resource type="GDScript" id="GDScript_x3vf3"]
+script/source = "class_name StateMachine extends Node
+
+@export var actor : CharacterBody2D
+@export var initial_state : State
+var current_state : State
+var states : Dictionary = {}
+
+func _ready() -> void:
+	
+	for child in get_children():
+		if child is State:
+			child.actor = get_parent()
+			states[child.name.to_lower()] = child
+			child.Transitioned.connect(on_child_transition)
+			
+		initial_state.Enter()
+		current_state = initial_state
+	
+func _process(delta):
+	if current_state:
+		current_state.Update(delta)
+	
+func _physics_process(delta):
+	if current_state:
+		current_state.Physics_Update(delta)
+		
+func transition_to(target_state_name: String):
+	var target_state: State = get_node(target_state_name)
+	
+	current_state.Exit()
+	current_state = target_state
+	current_state.Enter()
+
+func on_child_transition(state, new_state_name):
+	if state != current_state:
+		return
+		
+	var new_state = states.get(new_state_name.to_lower())
+	if !new_state:
+		return
+		
+	if current_state:
+		current_state.Exit()
+		
+	new_state.Enter()
+	
+	current_state = new_state
+"
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box", "animation_handler") groups=["Players"]]
 collision_mask = 16
 motion_mode = 1
@@ -244,7 +293,7 @@ polygon = PackedVector2Array(-16, -8, 0, -8, 16, -8, 16, 8, 0, 0, -16, 8)
 [node name="HealthComponent" parent="." instance=ExtResource("7_5htga")]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "initial_state")]
-script = ExtResource("7_apopc")
+script = SubResource("GDScript_x3vf3")
 actor = NodePath("..")
 initial_state = NodePath("Idle")
 

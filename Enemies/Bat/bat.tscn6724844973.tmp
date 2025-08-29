@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://j0xeqhbixmmf" path="res://Sprites/Animals/Chicken/Chicken.png" id="1_ajiil"]
 [ext_resource type="Script" uid="uid://dlicglw5uxutu" path="res://Enemies/Bat/enemy.gd" id="1_cuo72"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Player/Scripts/Animations/animation_handler.gd" id="2_cuo72"]
+[ext_resource type="Script" uid="uid://baiyenv70sm3x" path="res://Utilities/StateMachine/state_machine.gd" id="3_e1rno"]
 [ext_resource type="PackedScene" uid="uid://b55mblx7t5h58" path="res://Utilities/Components/HitBox/HitBoxComponent.tscn" id="4_0e3sx"]
 [ext_resource type="Script" uid="uid://dlxkh571xwibj" path="res://Utilities/StateMachine/actor_config.gd" id="4_nm5cg"]
 [ext_resource type="PackedScene" uid="uid://btlfg07brir8n" path="res://Utilities/Components/Health/HealthComponent.tscn" id="5_6tcbb"]
@@ -111,60 +112,10 @@ transitions = ["Start", "Wander", SubResource("AnimationNodeStateMachineTransiti
 [sub_resource type="CircleShape2D" id="CircleShape2D_nm5cg"]
 radius = 8.0
 
-[sub_resource type="GDScript" id="GDScript_x3vf3"]
-script/source = "class_name StateMachine extends Node
-
-@export var actor : CharacterBody2D
-@export var initial_state : State
-var current_state : State
-var states : Dictionary = {}
-
-func _ready() -> void:
-	
-	for child in get_children():
-		if child is State:
-			child.actor = get_parent()
-			states[child.name.to_lower()] = child
-			child.Transitioned.connect(on_child_transition)
-			
-		initial_state.Enter()
-		current_state = initial_state
-	
-func _process(delta):
-	if current_state:
-		current_state.Update(delta)
-	
-func _physics_process(delta):
-	if current_state:
-		current_state.Physics_Update(delta)
-		
-func transition_to(target_state_name: String):
-	var target_state: State = get_node(target_state_name)
-	
-	current_state.Exit()
-	current_state = target_state
-	current_state.Enter()
-
-func on_child_transition(state, new_state_name):
-	if state != current_state:
-		return
-		
-	var new_state = states.get(new_state_name.to_lower())
-	if !new_state:
-		return
-		
-	if current_state:
-		current_state.Exit()
-		
-	new_state.Enter()
-	
-	current_state = new_state
-"
-
-[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("animation_handler")]
+[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("animation_handler", "state_machine")]
 script = ExtResource("1_cuo72")
 animation_handler = NodePath("AnimationHandler")
-move_speed = 50
+state_machine = NodePath("StateMachine")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
@@ -209,7 +160,7 @@ position = Vector2(0, -8)
 hit_box_component = NodePath("../HitBoxComponent")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "initial_state")]
-script = SubResource("GDScript_x3vf3")
+script = ExtResource("3_e1rno")
 actor = NodePath("..")
 initial_state = NodePath("Wander")
 metadata/_custom_type_script = "uid://baiyenv70sm3x"
@@ -228,4 +179,4 @@ animation_handler = NodePath("../../AnimationHandler")
 
 [node name="Chasing" type="Node" parent="StateMachine"]
 script = ExtResource("10_nm5cg")
-chasing_speed = 0.1
+chasing_speed = 100

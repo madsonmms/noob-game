@@ -1,4 +1,4 @@
-class_name StateMachine extends Node
+extends Node
 
 @export var actor : CharacterBody2D
 @export var initial_state : State

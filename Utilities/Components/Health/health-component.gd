@@ -9,10 +9,7 @@ var health : float
 
 func _ready() -> void:
 	health = MAX_HEALTH
-	print_debug(health)
 
 func damage(damage : float):
-	print_debug("recebi", damage)
 	health -= damage
-	print_debug(health)
 	pass

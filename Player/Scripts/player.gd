@@ -3,7 +3,6 @@ extends CharacterBody2D
 
 @export var hurt_box : HurtBoxComponent
 @export var animation_handler : AnimationHandler
-@export var state_machine : StateMachine
 @onready var sprite : Sprite2D = $Sprite2D
 
 var attacking : bool = false

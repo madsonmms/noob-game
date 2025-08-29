@@ -11,7 +11,7 @@ func _ready() -> void:
 	
 func play( state: String, blend: Vector2 = Vector2.ZERO ) -> void:
 	
-	if blend.x != 0:
+	if blend.x != 0 and actor is Player1:
 		if blend.x < 0:
 			actor.sprite.scale.x = -1
 		else:
