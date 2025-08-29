@@ -23,6 +23,3 @@ func play( state: String, blend: Vector2 = Vector2.ZERO ) -> void:
 		var anim_length = animation_player.get_animation("attack_side").length
 		await get_tree().create_timer(anim_length).timeout
 		emit_signal("animation_finished", "Attack")
-
-func _on_animation_finished(from: String, to: String) -> void:
-	pass

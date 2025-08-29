@@ -122,6 +122,7 @@ shape = SubResource("CircleShape2D_qbvxn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)
+scale = Vector2(-1, 1)
 texture = ExtResource("1_ajiil")
 hframes = 2
 vframes = 2

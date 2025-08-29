@@ -13,20 +13,9 @@ var last_direction : Vector2 = Vector2.DOWN
 
 var move_speed : int = 20
 
-signal DirectionChanged( new_dir : Vector2 )
-
-func get_direction() -> Vector2:
-	var dir = direction
-	return dir.normalized()
-	
-
 func _physics_process(_delta: float) -> void:
-	direction = get_direction()
 	if direction != Vector2.ZERO:
-		last_direction = direction.normalized()
-		DirectionChanged.emit( last_direction )
-	else:
-		last_direction = Vector2.LEFT
-		
+		last_direction = direction
+	
 	if health_component.health <= 0: 
 		queue_free()
