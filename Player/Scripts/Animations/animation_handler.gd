@@ -1,7 +1,7 @@
 class_name AnimationHandler extends Node
 
-@export var animation_tree : AnimationTree
 @export var actor : CharacterBody2D
+@export var animation_tree : AnimationTree
 @export var animation_player : AnimationPlayer
 
 signal animation_finished(anim_name: StringName)
@@ -18,7 +18,6 @@ func play( state: String, blend: Vector2 = Vector2.ZERO ) -> void:
 			actor.sprite.scale.x = 1
 	
 	animation_tree.set("parameters/%s/blend_position" % state, blend)
-
 	
 	if state == "Attack":
 		var anim_length = animation_player.get_animation("attack_side").length

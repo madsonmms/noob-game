@@ -1,13 +1,13 @@
-class_name HurtBox extends Area2D
+class_name HurtBoxComponent extends Area2D
 
-@export var damage : int = 1
+@export var damage : int = 2
 
 func _ready() -> void:
 	area_entered.connect( AreaEntered )
 	pass
 
 func AreaEntered( area : Area2D ) -> void:
-	if area is HitBox:
+	if area is HitBoxComponent:
 		area.TakeDamage( damage )
 	pass
 	

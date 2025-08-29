@@ -5,9 +5,9 @@ func Enter():
 	actor.animation_handler.play("Idle", actor.last_direction)
 
 func Physics_Update(_delta: float) -> void:
-	var input_vector = actor.get_input_direction()
+	var actor_direction = actor.get_direction()
 
-	if input_vector != Vector2.ZERO:
+	if actor_direction != Vector2.ZERO:
 		emit_signal("Transitioned", self, "Walk")
 	elif actor.attacking == true:
 		emit_signal("Transitioned", self, "Attack")

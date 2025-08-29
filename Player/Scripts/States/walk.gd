@@ -6,7 +6,7 @@ func Physics_Update(_delta: float) -> void:
 	var attacking = actor.attacking
 		
 	if not attacking:
-		actor.velocity = actor.direction * actor.stats.move_speed
+		actor.velocity = actor.direction * actor.move_speed
 		actor.move_and_slide()
 		animation.play("Walk", actor.direction)
 	

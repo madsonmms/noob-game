@@ -1,16 +1,23 @@
-[gd_scene load_steps=24 format=3 uid="uid://cw81t0e3k7my"]
+[gd_scene load_steps=26 format=3 uid="uid://cw81t0e3k7my"]
 
 [ext_resource type="Script" uid="uid://d8nqx0l1k3v6" path="res://Player/Scripts/player.gd" id="1_gwnis"]
 [ext_resource type="Texture2D" uid="uid://dksdsj84raeik" path="res://Player/Sprites/Player.png" id="2_4ntmi"]
+[ext_resource type="Script" uid="uid://3o3yifg2orku" path="res://Player/Scripts/stats.gd" id="2_vtle1"]
 [ext_resource type="Script" uid="uid://baiyenv70sm3x" path="res://Utilities/StateMachine/state_machine.gd" id="3_k53q1"]
 [ext_resource type="Script" uid="uid://5yv0jlfyb8l1" path="res://Player/Scripts/States/idle.gd" id="4_k53q1"]
-[ext_resource type="PackedScene" uid="uid://dvjqasjid6con" path="res://Utilities/Components/HurtBox/HurtBoxComponent.tscn" id="5_apopc"]
 [ext_resource type="Script" uid="uid://d4fcl4s638pug" path="res://Player/Scripts/States/walk.gd" id="5_k53q1"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Player/Scripts/Animations/animation_handler.gd" id="5_od3ui"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bgk6c5ddeayb8" path="res://Player/Animations/player_animation_states.tres" id="5_x3vf3"]
+[ext_resource type="Script" uid="uid://d1gjw3o8j7ihk" path="res://Player/Interactions/interactions.gd" id="6_5htga"]
 [ext_resource type="Script" uid="uid://dlxkh571xwibj" path="res://Utilities/StateMachine/actor_config.gd" id="7_00tjw"]
-[ext_resource type="PackedScene" uid="uid://btlfg07brir8n" path="res://Utilities/Components/Health/HealthComponent.tscn" id="7_5htga"]
 [ext_resource type="Script" uid="uid://bahndge2tjscc" path="res://Player/Scripts/States/attack.gd" id="10_x3vf3"]
+[ext_resource type="Script" uid="uid://utvj8vj0nje7" path="res://Utilities/HurtBox/hurtbox.gd" id="11_apopc"]
+
+[sub_resource type="Resource" id="Resource_od3ui"]
+script = ExtResource("2_vtle1")
+move_speed = 100.0
+max_health = 100
+metadata/_custom_type_script = "uid://3o3yifg2orku"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 8.0
@@ -194,12 +201,12 @@ _data = {
 &"run_up": SubResource("Animation_x3vf3")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box", "animation_handler", "state_machine") groups=["Players"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_handler", "state_machine") groups=["Players"]]
 collision_mask = 16
 motion_mode = 1
 wall_min_slide_angle = 0.174533
 script = ExtResource("1_gwnis")
-hurt_box = NodePath("HurtBoxComponent")
+stats = SubResource("Resource_od3ui")
 animation_handler = NodePath("AnimationHandler")
 state_machine = NodePath("StateMachine")
 
@@ -214,10 +221,10 @@ texture = ExtResource("2_4ntmi")
 hframes = 6
 vframes = 10
 
-[node name="AnimationHandler" type="Node" parent="." node_paths=PackedStringArray("actor", "animation_tree", "animation_player")]
+[node name="AnimationHandler" type="Node" parent="." node_paths=PackedStringArray("animation_tree", "actor", "animation_player")]
 script = ExtResource("5_od3ui")
-actor = NodePath("..")
 animation_tree = NodePath("../AnimationTree")
+actor = NodePath("..")
 animation_player = NodePath("../AnimationPlayer")
 metadata/_custom_type_script = "uid://drje8wrjhp50u"
 
@@ -234,15 +241,20 @@ parameters/Attack/blend_position = Vector2(0, 0)
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0, 0)
 
-[node name="HurtBoxComponent" parent="." instance=ExtResource("5_apopc")]
+[node name="Interactions" type="Node2D" parent="."]
+script = ExtResource("6_5htga")
+
+[node name="HurtBox" type="Area2D" parent="Interactions"]
+collision_layer = 0
+collision_mask = 2
 monitoring = false
 monitorable = false
+script = ExtResource("11_apopc")
+metadata/_custom_type_script = "uid://utvj8vj0nje7"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtBoxComponent"]
-position = Vector2(0, -8)
-polygon = PackedVector2Array(-16, -8, 0, -8, 16, -8, 16, 8, 0, 0, -16, 8)
-
-[node name="HealthComponent" parent="." instance=ExtResource("7_5htga")]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactions/HurtBox"]
+build_mode = 1
+polygon = PackedVector2Array(0, 0, 16, -8, 16, 8, 0, 8, -16, 8, -16, -8)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "initial_state")]
 script = ExtResource("3_k53q1")
