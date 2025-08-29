@@ -1,5 +1,5 @@
-class_name Fleeing 
-extends Actor
+class_name FleeingState
+extends ActorsConfig
 
 var direction = chasing_handler(actor, player)
 @export var chasing_speed : int

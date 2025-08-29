@@ -1,5 +1,5 @@
 extends State
-class_name Actor
+class_name ActorsConfig
 
 #Change this when using the state machine
 var actor : CharacterBody2D
@@ -21,4 +21,5 @@ func chasing_handler(actor1, actor2):
 	
 	if actor1 and actor2:
 		chaser.direction = chaser.global_position - chased.global_position
+		
 		return chaser.direction

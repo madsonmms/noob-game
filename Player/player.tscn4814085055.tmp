@@ -246,7 +246,7 @@ polygon = PackedVector2Array(-16, -8, 0, -8, 16, -8, 16, 8, 0, 0, -16, 8)
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "initial_state")]
 script = ExtResource("7_apopc")
 actor = NodePath("..")
-initial_state = NodePath("IdleState")
+initial_state = NodePath("")
 metadata/_custom_type_script = "uid://baiyenv70sm3x"
 
 [node name="ActorsConfig" type="Node" parent="StateMachine"]

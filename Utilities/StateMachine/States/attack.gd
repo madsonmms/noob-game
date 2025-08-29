@@ -1,4 +1,5 @@
-extends Actor
+class_name AttackState
+extends ActorsConfig
 
 func Enter():
 	#Travar movimento enquanto ataca
@@ -25,7 +26,7 @@ func _on_attack_finished(anim_name: String):
 		actor.hurt_box.monitoring = false
 		
 		if actor.direction != Vector2.ZERO:
-			emit_signal("Transitioned", self, "Walk")
+			emit_signal("Transitioned", self, "WalkState")
 		else:
-			emit_signal("Transitioned", self, "Idle")
+			emit_signal("Transitioned", self, "IdleState")
 		

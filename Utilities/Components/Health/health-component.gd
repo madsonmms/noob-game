@@ -10,6 +10,6 @@ var health : float
 func _ready() -> void:
 	health = MAX_HEALTH
 
-func damage(damage : float):
-	health -= damage
+func damage(damage_taken : float):
+	health -= damage_taken
 	pass

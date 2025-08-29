@@ -11,10 +11,7 @@ var last_direction : Vector2 = Vector2.DOWN
 
 var move_speed :float = 100.0
 
-signal DirectionChanged( new_dir : Vector2 )
-
 func _ready() -> void:
-	DirectionChanged.connect( UpdateDirection )
 	pass
 
 func get_direction() -> Vector2:
@@ -22,6 +19,7 @@ func get_direction() -> Vector2:
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
+	
 	return dir.normalized()
 
 func UpdateDirection(new_dir : Vector2) -> void:
@@ -37,7 +35,6 @@ func UpdateDirection(new_dir : Vector2) -> void:
 			hurt_box.rotation_degrees = 90
 		Vector2.ZERO:
 			hurt_box.rotation_degrees = 0
-	
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -48,4 +45,4 @@ func _physics_process(_delta: float) -> void:
 	direction = get_direction()
 	if direction != Vector2.ZERO:
 		last_direction = direction.normalized()
-		DirectionChanged.emit( last_direction )
+		UpdateDirection(direction)

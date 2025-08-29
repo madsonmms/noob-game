@@ -6,16 +6,19 @@ class_name AnimationHandler extends Node
 
 signal animation_finished(anim_name: StringName)
 
+var last_horizontal_dir := 1  # 1 = direita, -1 = esquerda
+
 func _ready() -> void:
 	animation_tree.active = true
 	
+
 func play( state: String, blend: Vector2 = Vector2.ZERO ) -> void:
 	
-	if blend.x != 0 and actor is Player1:
+	if blend.x != 0:
 		if blend.x < 0:
 			actor.sprite.scale.x = -1
 		else:
-			actor.sprite.scale.x = 1
+			actor.sprite.scale.x = -1 if last_horizontal_dir < 0 else 1
 	
 	animation_tree.set("parameters/%s/blend_position" % state, blend)
 	

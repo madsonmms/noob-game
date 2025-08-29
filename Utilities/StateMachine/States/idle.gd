@@ -1,4 +1,5 @@
-extends Actor
+class_name IdleState
+extends ActorsConfig
 
 func Enter():
 	# Seta a animação Idle
@@ -6,8 +7,8 @@ func Enter():
 
 func Physics_Update(_delta: float) -> void:
 	var actor_direction = actor.get_direction()
-
+	
 	if actor_direction != Vector2.ZERO:
-		emit_signal("Transitioned", self, "Walk")
+		emit_signal("Transitioned", self, "WalkState")
 	elif actor.attacking == true:
-		emit_signal("Transitioned", self, "Attack")
+		emit_signal("Transitioned", self, "AttackState")
