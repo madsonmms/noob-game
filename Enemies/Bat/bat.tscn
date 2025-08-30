@@ -1,12 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://cb6x552wrjkr2"]
+[gd_scene load_steps=30 format=3 uid="uid://cb6x552wrjkr2"]
 
 [ext_resource type="Script" uid="uid://dlicglw5uxutu" path="res://Enemies/Bat/enemy.gd" id="1_cuo72"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="2_cuo72"]
 [ext_resource type="Texture2D" uid="uid://j0xeqhbixmmf" path="res://SpritesBank/Animals/Chicken/Chicken.png" id="2_e1rno"]
 [ext_resource type="PackedScene" uid="uid://b55mblx7t5h58" path="res://Utilities/Components/Combat/HitBox/HitBoxComponent.tscn" id="4_0e3sx"]
 [ext_resource type="Script" uid="uid://dlxkh571xwibj" path="res://Utilities/StateMachine/actor_config.gd" id="4_nm5cg"]
+[ext_resource type="Script" uid="uid://dan140gy13p7m" path="res://Utilities/Components/Combat/HurtBox/hurt_box_component.gd" id="5_0e3sx"]
 [ext_resource type="PackedScene" uid="uid://btlfg07brir8n" path="res://Utilities/Components/Gameplay/Health/HealthComponent.tscn" id="5_6tcbb"]
 [ext_resource type="Script" uid="uid://baiyenv70sm3x" path="res://Utilities/StateMachine/state_machine.gd" id="6_e1rno"]
+[ext_resource type="Script" uid="uid://bahndge2tjscc" path="res://Utilities/StateMachine/States/attack.gd" id="10_0e3sx"]
 [ext_resource type="Script" uid="uid://ba8dvateye5in" path="res://Utilities/StateMachine/States/EnemyStates/chasing.gd" id="10_nm5cg"]
 [ext_resource type="Script" uid="uid://bnfxpfnqpgckl" path="res://Utilities/StateMachine/States/EnemyStates/wander.gd" id="11_0e3sx"]
 
@@ -26,23 +28,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_ajiil"]
-resource_name = "attack"
-length = 0.034
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
 }
 
 [sub_resource type="Animation" id="Animation_t45ym"]
@@ -79,13 +64,43 @@ tracks/0/keys = {
 "values": [2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_ajiil"]
+resource_name = "attack_side"
+length = 0.034
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gyfm6"]
 _data = {
 &"RESET": SubResource("Animation_b5q6i"),
-&"attack": SubResource("Animation_ajiil"),
+&"attack_side": SubResource("Animation_ajiil"),
 &"idle": SubResource("Animation_t45ym"),
 &"run": SubResource("Animation_j8v3x")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0e3sx"]
+animation = &"attack_side"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6tcbb"]
+animation = &"attack_side"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_c07yt"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_0e3sx")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_6tcbb")
+blend_point_1/pos = 1.0
+blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e1rno"]
 animation = &"run"
@@ -103,17 +118,31 @@ blend_mode = 1
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6tcbb"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qbvxn"]
+advance_mode = 2
+advance_expression = "attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t45ym"]
+advance_mode = 2
+advance_expression = "!attacking"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3iit6"]
+states/Attack/node = SubResource("AnimationNodeBlendSpace1D_c07yt")
+states/Attack/position = Vector2(543, 100)
 states/Wander/node = SubResource("AnimationNodeBlendSpace1D_0e3sx")
 states/Wander/position = Vector2(361, 100)
-transitions = ["Start", "Wander", SubResource("AnimationNodeStateMachineTransition_6tcbb")]
+transitions = ["Start", "Wander", SubResource("AnimationNodeStateMachineTransition_6tcbb"), "Wander", "Attack", SubResource("AnimationNodeStateMachineTransition_qbvxn"), "Attack", "Wander", SubResource("AnimationNodeStateMachineTransition_t45ym")]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nm5cg"]
 radius = 8.0
 
-[node name="Bat" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6tcbb"]
+radius = 8.0
+
+[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box")]
 scale = Vector2(-1, 1)
 script = ExtResource("1_cuo72")
+hurt_box = NodePath("HurtBoxComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
@@ -141,9 +170,11 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_3iit6")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Attack/blend_position = -0.315003
 parameters/Wander/blend_position = 0.998064
 
 [node name="HitBoxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_0e3sx")]
+collision_mask = 0
 monitoring = false
 health_component = NodePath("../HealthComponent")
 
@@ -151,6 +182,17 @@ health_component = NodePath("../HealthComponent")
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_nm5cg")
 debug_color = Color(0.86186, 0.000639369, 0.871022, 0.42)
+
+[node name="HurtBoxComponent" type="Area2D" parent="."]
+collision_mask = 0
+monitorable = false
+script = ExtResource("5_0e3sx")
+metadata/_custom_type_script = "uid://dan140gy13p7m"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+position = Vector2(8, -8)
+shape = SubResource("CircleShape2D_6tcbb")
+debug_color = Color(0.673385, 0.506405, 0.0793368, 0.42)
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("hit_box_component") instance=ExtResource("5_6tcbb")]
 position = Vector2(0, -8)
@@ -176,3 +218,7 @@ script = ExtResource("10_nm5cg")
 chasing_speed = 2.0
 animation_handler = NodePath("../../AnimationHandler")
 metadata/_custom_type_script = "uid://ba8dvateye5in"
+
+[node name="AttackState" type="Node" parent="StateMachine"]
+script = ExtResource("10_0e3sx")
+metadata/_custom_type_script = "uid://bahndge2tjscc"

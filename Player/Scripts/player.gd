@@ -12,6 +12,7 @@ var last_direction : Vector2 = Vector2.DOWN
 var move_speed :float = 100.0
 
 func _ready() -> void:
+	
 	pass
 
 func get_direction() -> Vector2:

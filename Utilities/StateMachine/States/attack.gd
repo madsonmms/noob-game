@@ -2,20 +2,12 @@ class_name AttackState
 extends ActorsConfig
 
 func Enter():
-	#Travar movimento enquanto ataca
-	actor.velocity = Vector2.ZERO
-	
-	# Toca a animação de ataque na direção correta
-	actor.animation_handler.play("Attack", actor.last_direction)
-	
-	# Conecta ao sinal do AnimationHandler (se ainda não estiver conectado)
-	actor.animation_handler.animation_finished.connect(_on_attack_finished, CONNECT_ONE_SHOT)
-	
-	#Timer pra ligar a hurtbox
-	await get_tree().create_timer( 0.075 ).timeout
-	
-	#Liga o monitoramento da hurtbox
-	actor.hurt_box.monitoring = true
+	#-- Lógica global --#
+	actor.attacking = true
+	actor.velocity = Vector2.ZERO #Travar movimento enquanto ataca
+	actor.animation_handler.play("Attack", actor.last_direction) # Toca a animação de ataque na direção correta
+	actor.animation_handler.animation_finished.connect(_on_attack_finished, CONNECT_ONE_SHOT) # Conecta ao sinal do AnimationHandler (se ainda não estiver conectado)
+	actor.hurt_box.monitoring = true #Liga o monitoramento da hurtbox
 
 func Exit():
 	pass
@@ -25,8 +17,10 @@ func _on_attack_finished(anim_name: String):
 		actor.attacking = false
 		actor.hurt_box.monitoring = false
 		
-		if actor.direction != Vector2.ZERO:
-			emit_signal("Transitioned", self, "WalkState")
+		if actor is Player1:
+			if actor.direction != Vector2.ZERO:
+				emit_signal("Transitioned", self, "WalkState")
+			else:
+				emit_signal("Transitioned", self, "IdleState")
 		else:
-			emit_signal("Transitioned", self, "IdleState")
-		
+			check_distance()

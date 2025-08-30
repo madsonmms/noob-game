@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://by18nixr62s02"]
+
+[ext_resource type="Script" uid="uid://baiyenv70sm3x" path="res://Utilities/StateMachine/state_machine.gd" id="1_17bmp"]
+[ext_resource type="Script" uid="uid://d0dqksnh6bc8s" path="res://Utilities/StateMachine/States/EnemyStates/fleeing.gd" id="2_v5kb0"]
+[ext_resource type="Script" uid="uid://bnfxpfnqpgckl" path="res://Utilities/StateMachine/States/EnemyStates/wander.gd" id="3_q715v"]
+[ext_resource type="Script" uid="uid://dw2pwkrlfb2qi" path="res://Utilities/Components/Combat/HitBox/hit_box_component.gd" id="4_y4xkr"]
+[ext_resource type="Script" uid="uid://kx4vpllayof" path="res://Utilities/Components/Gameplay/Health/health-component.gd" id="5_ilwmj"]
+[ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="6_43tay"]
+
+[node name="Rat" type="CharacterBody2D"]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("1_17bmp")
+metadata/_custom_type_script = "uid://baiyenv70sm3x"
+
+[node name="FleeingState" type="Node" parent="StateMachine"]
+script = ExtResource("2_v5kb0")
+metadata/_custom_type_script = "uid://d0dqksnh6bc8s"
+
+[node name="WanderState" type="Node" parent="StateMachine"]
+script = ExtResource("3_q715v")
+metadata/_custom_type_script = "uid://bnfxpfnqpgckl"
+
+[node name="HitBoxComponent" type="Area2D" parent="."]
+script = ExtResource("4_y4xkr")
+metadata/_custom_type_script = "uid://dw2pwkrlfb2qi"
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_ilwmj")
+metadata/_custom_type_script = "uid://kx4vpllayof"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="AnimationHandler" type="Node" parent="."]
+script = ExtResource("6_43tay")
+metadata/_custom_type_script = "uid://drje8wrjhp50u"

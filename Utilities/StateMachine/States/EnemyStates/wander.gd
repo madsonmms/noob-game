@@ -19,7 +19,7 @@ func Update(delta : float):
 		wander_time -= delta
 	else:
 		_randomize_wander()
-		
+	
 func Physics_Update(_delta: float) -> void:
 	actor.velocity = move_direction * actor.move_speed
 	actor.move_and_slide()
