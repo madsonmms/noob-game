@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://cgfrn4xi01hhh"]
 
 [ext_resource type="PackedScene" uid="uid://cw81t0e3k7my" path="res://Player/player.tscn" id="1_f3sb7"]
-[ext_resource type="Texture2D" uid="uid://djmtai2gtkp5w" path="res://Sprites/Tiles/Grass_Middle.png" id="2_aqk2v"]
-[ext_resource type="Texture2D" uid="uid://df041mhe4kgwh" path="res://Sprites/Tiles/Path_Tile.png" id="3_036b0"]
+[ext_resource type="Texture2D" uid="uid://djmtai2gtkp5w" path="res://SpritesBank/Tiles/Grass_Middle.png" id="2_aqk2v"]
+[ext_resource type="Texture2D" uid="uid://df041mhe4kgwh" path="res://SpritesBank/Tiles/Path_Tile.png" id="3_036b0"]
 [ext_resource type="PackedScene" uid="uid://cb6x552wrjkr2" path="res://Enemies/Bat/bat.tscn" id="5_036b0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tlwt5"]

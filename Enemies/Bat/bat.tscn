@@ -1,14 +1,14 @@
 [gd_scene load_steps=22 format=3 uid="uid://cb6x552wrjkr2"]
 
 [ext_resource type="Script" uid="uid://dlicglw5uxutu" path="res://Enemies/Bat/enemy.gd" id="1_cuo72"]
-[ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Player/Scripts/Animations/animation_handler.gd" id="2_cuo72"]
-[ext_resource type="Texture2D" uid="uid://j0xeqhbixmmf" path="res://Sprites/Animals/Chicken/Chicken.png" id="2_e1rno"]
-[ext_resource type="PackedScene" uid="uid://b55mblx7t5h58" path="res://Utilities/Components/HitBox/HitBoxComponent.tscn" id="4_0e3sx"]
+[ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="2_cuo72"]
+[ext_resource type="Texture2D" uid="uid://j0xeqhbixmmf" path="res://SpritesBank/Animals/Chicken/Chicken.png" id="2_e1rno"]
+[ext_resource type="PackedScene" uid="uid://b55mblx7t5h58" path="res://Utilities/Components/Combat/HitBox/HitBoxComponent.tscn" id="4_0e3sx"]
 [ext_resource type="Script" uid="uid://dlxkh571xwibj" path="res://Utilities/StateMachine/actor_config.gd" id="4_nm5cg"]
-[ext_resource type="PackedScene" uid="uid://btlfg07brir8n" path="res://Utilities/Components/Health/HealthComponent.tscn" id="5_6tcbb"]
+[ext_resource type="PackedScene" uid="uid://btlfg07brir8n" path="res://Utilities/Components/Gameplay/Health/HealthComponent.tscn" id="5_6tcbb"]
 [ext_resource type="Script" uid="uid://baiyenv70sm3x" path="res://Utilities/StateMachine/state_machine.gd" id="6_e1rno"]
-[ext_resource type="Script" uid="uid://ba8dvateye5in" path="res://Utilities/StateMachine/States/chasing.gd" id="10_nm5cg"]
-[ext_resource type="Script" uid="uid://bnfxpfnqpgckl" path="res://Utilities/StateMachine/States/wander.gd" id="11_0e3sx"]
+[ext_resource type="Script" uid="uid://ba8dvateye5in" path="res://Utilities/StateMachine/States/EnemyStates/chasing.gd" id="10_nm5cg"]
+[ext_resource type="Script" uid="uid://bnfxpfnqpgckl" path="res://Utilities/StateMachine/States/EnemyStates/wander.gd" id="11_0e3sx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qbvxn"]
 radius = 8.0
@@ -173,6 +173,6 @@ metadata/_custom_type_script = "uid://bnfxpfnqpgckl"
 
 [node name="ChasingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation_handler")]
 script = ExtResource("10_nm5cg")
-chasing_speed = 1.0
+chasing_speed = 2.0
 animation_handler = NodePath("../../AnimationHandler")
 metadata/_custom_type_script = "uid://ba8dvateye5in"
