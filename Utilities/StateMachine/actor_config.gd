@@ -35,3 +35,14 @@ func check_distance():
 		emit_signal("Transitioned", self, "ChasingState")
 		
 	return true
+
+func sprite_direction():
+	
+	var direction_to_player = chasing_handler(actor, player).normalized()
+	
+	if direction_to_player.x < 0:
+		actor.sprite.scale.x = -1
+	else:
+		actor.sprite.scale.x = 1
+		
+	return direction_to_player

@@ -1,10 +1,11 @@
 class_name Enemy
 extends CharacterBody2D
 
-@onready var sprite : Sprite2D = $Idle
+@onready var sprite : Sprite2D = $Attack
 @onready var health_component : HealthComponent = $HealthComponent
 @onready var animation_handler : AnimationHandler = $AnimationHandler
 @onready var state_machine : StateMachine = $StateMachine
+
 @export var hurt_box: HurtBoxComponent
 
 var attacking : bool = false
