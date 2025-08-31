@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cb6x552wrjkr2"]
+[gd_scene load_steps=37 format=3 uid="uid://cb6x552wrjkr2"]
 
 [ext_resource type="Script" uid="uid://dlicglw5uxutu" path="res://Enemies/Bat/bat.gd" id="1_cuo72"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="2_cuo72"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" uid="uid://bahndge2tjscc" path="res://Utilities/StateMachine/States/attack.gd" id="10_0e3sx"]
 [ext_resource type="Script" uid="uid://ba8dvateye5in" path="res://Utilities/StateMachine/States/EnemyStates/chasing.gd" id="10_nm5cg"]
 [ext_resource type="Script" uid="uid://bnfxpfnqpgckl" path="res://Utilities/StateMachine/States/EnemyStates/wander.gd" id="11_0e3sx"]
-[ext_resource type="Script" uid="uid://cx4m0l7y162y0" path="res://Utilities/StateMachine/States/EnemyStates/death.gd" id="16_b5q6i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qbvxn"]
 radius = 8.0
@@ -130,18 +129,6 @@ tracks/8/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Death:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_m3j8c"]
 resource_name = "attack_side"
@@ -182,17 +169,22 @@ tracks/2/keys = {
 "update": 1,
 "values": [false, false]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Death:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+
+[sub_resource type="Animation" id="Animation_ajiil"]
+resource_name = "attack_side_alternative"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackWindUp:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.266667, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, false]
+"values": [0, 1, 2, 3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_p3w67"]
@@ -204,58 +196,22 @@ tracks/0/path = NodePath("Death:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 0.166667, 0.3, 0.4, 0.5),
+"times": PackedFloat32Array(0, 0.166667, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Death:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0.633333, 1),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Idle:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Attack:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Death:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_x8d8g"]
@@ -314,30 +270,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Death:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Attack:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
 
 [sub_resource type="Animation" id="Animation_j8v3x"]
 resource_name = "run"
@@ -360,6 +292,7 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_b5q6i"),
 &"attack_side": SubResource("Animation_m3j8c"),
+&"attack_side_alternative": SubResource("Animation_ajiil"),
 &"death": SubResource("Animation_p3w67"),
 &"hit": SubResource("Animation_x8d8g"),
 &"idle": SubResource("Animation_t45ym"),
@@ -378,18 +311,6 @@ blend_point_0/pos = 1.0
 blend_point_1/node = SubResource("AnimationNodeAnimation_b5q6i")
 blend_point_1/pos = -1.0
 blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j8v3x"]
-animation = &"death"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gyfm6"]
-animation = &"death"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_jdi48"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_j8v3x")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_gyfm6")
-blend_point_1/pos = 1.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e1rno"]
 animation = &"run"
@@ -415,22 +336,12 @@ advance_expression = "attacking"
 advance_mode = 2
 advance_expression = "!attacking"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m3j8c"]
-advance_mode = 2
-advance_expression = "dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b5q6i"]
-advance_mode = 2
-advance_expression = "dead"
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3iit6"]
 states/Attack/node = SubResource("AnimationNodeBlendSpace1D_c07yt")
 states/Attack/position = Vector2(543, 100)
-states/Death/node = SubResource("AnimationNodeBlendSpace1D_jdi48")
-states/Death/position = Vector2(543, 190)
 states/Wander/node = SubResource("AnimationNodeBlendSpace1D_0e3sx")
 states/Wander/position = Vector2(361, 100)
-transitions = ["Start", "Wander", SubResource("AnimationNodeStateMachineTransition_6tcbb"), "Wander", "Attack", SubResource("AnimationNodeStateMachineTransition_qbvxn"), "Attack", "Wander", SubResource("AnimationNodeStateMachineTransition_t45ym"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_m3j8c"), "Wander", "Death", SubResource("AnimationNodeStateMachineTransition_b5q6i")]
+transitions = ["Start", "Wander", SubResource("AnimationNodeStateMachineTransition_6tcbb"), "Wander", "Attack", SubResource("AnimationNodeStateMachineTransition_qbvxn"), "Attack", "Wander", SubResource("AnimationNodeStateMachineTransition_t45ym")]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nm5cg"]
 radius = 8.0
@@ -448,7 +359,7 @@ position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_qbvxn")
 
 [node name="Idle" type="Sprite2D" parent="."]
-position = Vector2(0, -14)
+position = Vector2(0, -8)
 texture = ExtResource("2_t45ym")
 hframes = 4
 
@@ -493,7 +404,6 @@ tree_root = SubResource("AnimationNodeStateMachine_3iit6")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Attack/blend_position = -0.315003
-parameters/Death/blend_position = 0.156034
 parameters/Wander/blend_position = 0.998064
 
 [node name="HitBoxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_0e3sx")]
@@ -545,8 +455,3 @@ metadata/_custom_type_script = "uid://ba8dvateye5in"
 [node name="AttackState" type="Node" parent="StateMachine"]
 script = ExtResource("10_0e3sx")
 metadata/_custom_type_script = "uid://bahndge2tjscc"
-
-[node name="DeathState" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation_handler")]
-script = ExtResource("16_b5q6i")
-animation_handler = NodePath("../../AnimationHandler")
-metadata/_custom_type_script = "uid://cx4m0l7y162y0"

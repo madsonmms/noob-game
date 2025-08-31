@@ -36,13 +36,30 @@ func check_distance():
 		
 	return true
 
-func sprite_direction():
+#Pega o nome do sprite atual para poder fazer as outras funções
+func _get_sprite_name(name : String) -> Sprite2D:
 	
-	var direction_to_player = chasing_handler(actor, player).normalized()
+	var sprites = actor.sprites
 	
-	if direction_to_player.x < 0:
-		actor.sprite.scale.x = -1
-	else:
-		actor.sprite.scale.x = 1
+	if sprites:
+		for s in sprites:
+			if s.name == name:
+				return s
 		
-	return direction_to_player
+	return null
+
+func show_sprite(name: String):
+	for s in actor.sprites:
+		s.visible = s.name == name
+
+#Seta a sprite para a direção correta durante todo o estado
+func sprite_direction(name : String, direction : Vector2 = Vector2.LEFT ):
+	
+	var sprite = _get_sprite_name(name)
+	
+	if direction.x < 0:
+		sprite.scale.x = -1
+	else:
+		sprite.scale.x = 1
+		
+	return direction
