@@ -8,7 +8,7 @@ func Enter():
 	
 	if actor is Player1:
 		actor.animation_handler.play("Attack", actor.last_direction) # Toca a animação de ataque na direção correta
-	elif actor is Enemy:
+	else:
 		var sprite_direction = sprite_direction("Attack", chasing_handler(actor, player).normalized())
 		actor.animation_handler.play("Attack", sprite_direction) # Toca a animação de ataque na direção correta
 		

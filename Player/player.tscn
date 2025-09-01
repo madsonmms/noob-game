@@ -229,8 +229,8 @@ libraries = {
 tree_root = ExtResource("5_x3vf3")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Attack/blend_position = Vector2(0, 0)
-parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Attack/blend_position = Vector2(0.0573409, 0.632287)
+parameters/Idle/blend_position = Vector2(-0.0119722, -0.0941705)
 parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="HurtBoxComponent" parent="." instance=ExtResource("5_apopc")]

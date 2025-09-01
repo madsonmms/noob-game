@@ -439,10 +439,10 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_6tcbb"]
 radius = 8.0
 
-[node name="Bat" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box")]
+[node name="Bat" type="CharacterBody2D"]
 scale = Vector2(-1, 1)
 script = ExtResource("1_cuo72")
-hurt_box = NodePath("HurtBoxComponent")
+chasing_speed = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
@@ -532,15 +532,16 @@ metadata/_custom_type_script = "uid://baiyenv70sm3x"
 script = ExtResource("4_nm5cg")
 metadata/_custom_type_script = "uid://dlxkh571xwibj"
 
-[node name="WanderState" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation_handler")]
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("17_j8v3x")
+metadata/_custom_type_script = "uid://5yv0jlfyb8l1"
+
+[node name="WanderState" type="Node" parent="StateMachine"]
 script = ExtResource("11_0e3sx")
-animation_handler = NodePath("../../AnimationHandler")
 metadata/_custom_type_script = "uid://bnfxpfnqpgckl"
 
-[node name="ChasingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation_handler")]
+[node name="ChasingState" type="Node" parent="StateMachine"]
 script = ExtResource("10_nm5cg")
-chasing_speed = 2.0
-animation_handler = NodePath("../../AnimationHandler")
 metadata/_custom_type_script = "uid://ba8dvateye5in"
 
 [node name="AttackState" type="Node" parent="StateMachine"]
@@ -551,7 +552,3 @@ metadata/_custom_type_script = "uid://bahndge2tjscc"
 script = ExtResource("16_b5q6i")
 animation_handler = NodePath("../../AnimationHandler")
 metadata/_custom_type_script = "uid://cx4m0l7y162y0"
-
-[node name="IdleState" type="Node" parent="StateMachine"]
-script = ExtResource("17_j8v3x")
-metadata/_custom_type_script = "uid://5yv0jlfyb8l1"

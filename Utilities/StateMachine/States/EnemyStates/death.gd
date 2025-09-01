@@ -5,7 +5,7 @@ extends ActorsConfig
 
 func Enter():
 	
-	var sprite_direction = sprite_direction("Death",chasing_handler(actor, player).normalized())
+	var sprite_direction = sprite_direction("Death", actor.last_direction)
 	
 	animation_handler.play("Death", sprite_direction)
 	
