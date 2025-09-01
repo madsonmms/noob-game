@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cb6x552wrjkr2"]
+[gd_scene load_steps=44 format=3 uid="uid://cb6x552wrjkr2"]
 
 [ext_resource type="Script" uid="uid://dlicglw5uxutu" path="res://Enemies/Bat/bat.gd" id="1_cuo72"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="2_cuo72"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://bahndge2tjscc" path="res://Utilities/StateMachine/States/attack.gd" id="10_0e3sx"]
 [ext_resource type="Script" uid="uid://ba8dvateye5in" path="res://Utilities/StateMachine/States/EnemyStates/chasing.gd" id="10_nm5cg"]
 [ext_resource type="Script" uid="uid://bnfxpfnqpgckl" path="res://Utilities/StateMachine/States/EnemyStates/wander.gd" id="11_0e3sx"]
+[ext_resource type="Script" uid="uid://cdli7d2kp2k3o" path="res://Utilities/Components/Gameplay/Timer/timer_component.gd" id="11_gyfm6"]
 [ext_resource type="Script" uid="uid://cx4m0l7y162y0" path="res://Utilities/StateMachine/States/EnemyStates/death.gd" id="16_b5q6i"]
 [ext_resource type="Script" uid="uid://5yv0jlfyb8l1" path="res://Utilities/StateMachine/States/idle.gd" id="17_j8v3x"]
 
@@ -521,6 +522,9 @@ debug_color = Color(0.673385, 0.506405, 0.0793368, 0.42)
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("hit_box_component") instance=ExtResource("5_6tcbb")]
 position = Vector2(0, -8)
 hit_box_component = NodePath("../HitBoxComponent")
+
+[node name="TimerComponent" type="Node" parent="."]
+script = ExtResource("11_gyfm6")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "initial_state")]
 script = ExtResource("6_e1rno")
