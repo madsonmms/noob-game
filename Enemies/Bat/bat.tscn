@@ -526,9 +526,8 @@ hit_box_component = NodePath("../HitBoxComponent")
 [node name="TimerComponent" type="Node" parent="."]
 script = ExtResource("11_gyfm6")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "initial_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_e1rno")
-actor = NodePath("..")
 initial_state = NodePath("WanderState")
 metadata/_custom_type_script = "uid://baiyenv70sm3x"
 

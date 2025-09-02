@@ -243,9 +243,8 @@ polygon = PackedVector2Array(-16, -8, 0, -8, 16, -8, 16, 8, 0, 0, -16, 8)
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_5htga")]
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "initial_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_apopc")
-actor = NodePath("..")
 initial_state = NodePath("IdleState")
 metadata/_custom_type_script = "uid://baiyenv70sm3x"
 

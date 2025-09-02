@@ -1,12 +1,16 @@
 class_name StateMachine
 extends Node
 
-@export var actor : CharacterBody2D
+@onready var actor : CharacterBody2D = get_parent()
+
 @export var initial_state : State
+
 var current_state : State
 var states : Dictionary = {}
 
 func _ready() -> void:
+	
+	print_debug(actor)
 	
 	for child in get_children():
 		if child is State:
