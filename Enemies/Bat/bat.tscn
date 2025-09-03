@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cb6x552wrjkr2"]
+[gd_scene load_steps=44 format=3 uid="uid://cb6x552wrjkr2"]
 
 [ext_resource type="Script" uid="uid://dlicglw5uxutu" path="res://Enemies/Bat/bat.gd" id="1_cuo72"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="2_cuo72"]
@@ -18,7 +18,6 @@
 [ext_resource type="Script" uid="uid://dy1k84ncp5hsn" path="res://Utilities/Components/Combat/Attack/attack_component.gd" id="11_gyfm6"]
 [ext_resource type="Script" uid="uid://cx4m0l7y162y0" path="res://Utilities/StateMachine/States/EnemyStates/death.gd" id="16_b5q6i"]
 [ext_resource type="Script" uid="uid://5yv0jlfyb8l1" path="res://Utilities/StateMachine/States/idle.gd" id="17_j8v3x"]
-[ext_resource type="Script" uid="uid://bwcbq5xp6bis" path="res://Utilities/StateMachine/States/hit.gd" id="18_jdi48"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qbvxn"]
 radius = 8.0
@@ -556,10 +555,6 @@ metadata/_custom_type_script = "uid://ba8dvateye5in"
 [node name="AttackState" type="Node" parent="StateMachine"]
 script = ExtResource("10_0e3sx")
 metadata/_custom_type_script = "uid://bahndge2tjscc"
-
-[node name="HitState" type="Node" parent="StateMachine"]
-script = ExtResource("18_jdi48")
-metadata/_custom_type_script = "uid://bwcbq5xp6bis"
 
 [node name="DeathState" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation_handler")]
 script = ExtResource("16_b5q6i")

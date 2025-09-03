@@ -22,8 +22,8 @@ func _ready() -> void:
 		initial_state.Enter()
 		current_state = initial_state
 	
-	if hitbox_component:
-		hitbox_component.took_damage.connect(_on_took_damage)
+	#if hitbox_component:
+		#hitbox_component.took_damage.connect(_on_took_damage)
 		
 func _process(delta):
 	if current_state:
@@ -59,5 +59,5 @@ func transition_to(target_state_name: String):
 	current_state = target_state
 	current_state.Enter()
 
-func _on_took_damage():
-	transition_to("HitState")
+#func _on_took_damage():
+	#transition_to("HitState")
