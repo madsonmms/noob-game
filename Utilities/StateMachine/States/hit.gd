@@ -1,7 +1,7 @@
 class_name HitState
 extends State
 
-var knockback_force : float = 1000.0
+var knockback_force : int = 5000
 
 func Enter():
 	if actor is not Player1:
