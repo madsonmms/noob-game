@@ -1,5 +1,5 @@
 class_name WalkState
-extends ActorsConfig
+extends State
 
 func Enter():
 	pass

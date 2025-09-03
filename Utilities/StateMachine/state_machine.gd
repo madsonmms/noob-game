@@ -3,6 +3,11 @@ extends Node
 
 @export var actor : CharacterBody2D
 @export var initial_state : State
+
+@export var attack_component : AttackComponent
+@export var hurtbox_component : HurtBoxComponent
+@export var hitbox_component : HitBoxComponent
+
 var current_state : State
 var states : Dictionary = {}
 
@@ -17,6 +22,9 @@ func _ready() -> void:
 		initial_state.Enter()
 		current_state = initial_state
 	
+	if hitbox_component:
+		hitbox_component.took_damage.connect(_on_took_damage)
+		
 func _process(delta):
 	if current_state:
 		current_state.Update(delta)
@@ -25,12 +33,6 @@ func _physics_process(delta):
 	if current_state:
 		current_state.Physics_Update(delta)
 		
-func transition_to(target_state_name: String):
-	var target_state: State = get_node(target_state_name)
-	
-	current_state.Exit()
-	current_state = target_state
-	current_state.Enter()
 
 func on_child_transition(state, new_state_name):
 	if state != current_state:
@@ -49,3 +51,13 @@ func on_child_transition(state, new_state_name):
 
 func has_state(name: String) -> bool:
 	return states.has(name)
+
+func transition_to(target_state_name: String):
+	var target_state: State = get_node(target_state_name)
+	
+	current_state.Exit()
+	current_state = target_state
+	current_state.Enter()
+
+func _on_took_damage():
+	transition_to("HitState")

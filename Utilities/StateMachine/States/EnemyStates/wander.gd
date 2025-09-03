@@ -1,5 +1,5 @@
 class_name WanderState
-extends ActorsConfig
+extends State
 
 var wander_direction : Vector2
 var wander_time : float

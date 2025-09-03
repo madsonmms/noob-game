@@ -26,6 +26,7 @@ window/stretch/mode="viewport"
 [global_group]
 
 Players="Game players"
+Actors=""
 
 [input]
 
@@ -59,6 +60,7 @@ z_button={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="HitBox"
+2d_physics/layer_3="Hurtbox"
 2d_physics/layer_5="Walls"
 2d_physics/layer_9="Enemy"
 

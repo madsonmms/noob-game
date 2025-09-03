@@ -1,5 +1,5 @@
 class_name DeathState
-extends ActorsConfig
+extends State
 
 @export var animation_handler : AnimationHandler
 

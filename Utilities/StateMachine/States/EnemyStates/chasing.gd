@@ -1,5 +1,5 @@
 class_name ChasingState
-extends ActorsConfig
+extends State
 
 func Enter():
 	show_sprite("Idle")

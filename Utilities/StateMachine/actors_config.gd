@@ -1,20 +1,28 @@
-extends State
+extends Node
 class_name ActorsConfig
 
 #Change this when using the state machine
 var actor : CharacterBody2D
-var player : CharacterBody2D
+#var actors : Array[Node] = []
+var player : Player1
+
 var player_position : Vector2
 var actor_position : Vector2
+
+var targets : Array[Actor] = []
 
 func _ready():
 	player = get_tree().get_first_node_in_group("Players")
 	actor = get_parent().get_parent()
 	
+	#future implementation of mutiple actors
+	#for n in get_tree().get_nodes_in_group("Actors"):
+		#if n is Actor:
+			#actors.append(n as Actor)
+	
 func _process(_delta: float):
 	player_position = player.global_position
 	actor_position = actor.global_position
-
 
 func chasing_handler(actor1, actor2):
 	var chaser = actor1
@@ -25,7 +33,10 @@ func chasing_handler(actor1, actor2):
 		return chaser.direction
 
 func check_distance():
-	var direction = chasing_handler(actor, player)
+	
+	var direction : Vector2
+
+	direction = chasing_handler(actor, player)
 	
 	if direction and direction.length() <= 20 and actor.state_machine.has_state("attackstate"):
 		emit_signal("Transitioned", self, "AttackState")

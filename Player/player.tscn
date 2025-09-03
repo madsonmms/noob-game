@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cw81t0e3k7my"]
+[gd_scene load_steps=25 format=3 uid="uid://cw81t0e3k7my"]
 
 [ext_resource type="Script" uid="uid://d8nqx0l1k3v6" path="res://Player/Scripts/player.gd" id="1_gwnis"]
 [ext_resource type="Texture2D" uid="uid://dksdsj84raeik" path="res://Player/Sprites/Player.png" id="2_4ntmi"]
@@ -7,9 +7,10 @@
 [ext_resource type="Script" uid="uid://d4fcl4s638pug" path="res://Utilities/StateMachine/States/walk.gd" id="5_k53q1"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="5_od3ui"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bgk6c5ddeayb8" path="res://Player/Animations/player_animation_states.tres" id="5_x3vf3"]
-[ext_resource type="Script" uid="uid://dlxkh571xwibj" path="res://Utilities/StateMachine/actor_config.gd" id="7_00tjw"]
+[ext_resource type="Script" uid="uid://dlxkh571xwibj" path="res://Utilities/StateMachine/actors_config.gd" id="7_00tjw"]
 [ext_resource type="PackedScene" uid="uid://btlfg07brir8n" path="res://Utilities/Components/Gameplay/Health/HealthComponent.tscn" id="7_5htga"]
 [ext_resource type="Script" uid="uid://baiyenv70sm3x" path="res://Utilities/StateMachine/state_machine.gd" id="7_apopc"]
+[ext_resource type="Script" uid="uid://dy1k84ncp5hsn" path="res://Utilities/Components/Combat/Attack/attack_component.gd" id="7_p5o4e"]
 [ext_resource type="Script" uid="uid://bahndge2tjscc" path="res://Utilities/StateMachine/States/attack.gd" id="10_x3vf3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
@@ -194,7 +195,7 @@ _data = {
 &"run_up": SubResource("Animation_x3vf3")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box", "animation_handler") groups=["Players"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box", "animation_handler") groups=["Actors", "Players"]]
 collision_mask = 16
 motion_mode = 1
 wall_min_slide_angle = 0.174533
@@ -234,6 +235,8 @@ parameters/Idle/blend_position = Vector2(-0.0119722, -0.0941705)
 parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="HurtBoxComponent" parent="." instance=ExtResource("5_apopc")]
+collision_layer = 0
+collision_mask = 2
 monitoring = false
 monitorable = false
 
@@ -243,9 +246,13 @@ polygon = PackedVector2Array(-16, -8, 0, -8, 16, -8, 16, 8, 0, 0, -16, 8)
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_5htga")]
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "initial_state")]
+[node name="AttackComponent" type="Node2D" parent="."]
+script = ExtResource("7_p5o4e")
+damage = 1.0
+metadata/_custom_type_script = "uid://dy1k84ncp5hsn"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_apopc")
-actor = NodePath("..")
 initial_state = NodePath("IdleState")
 metadata/_custom_type_script = "uid://baiyenv70sm3x"
 

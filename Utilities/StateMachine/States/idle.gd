@@ -1,5 +1,5 @@
 class_name IdleState
-extends ActorsConfig
+extends State
 
 var idle_direction : Vector2
 var idle_time : float

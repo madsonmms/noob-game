@@ -1,9 +1,9 @@
 class_name HitBoxComponent extends Area2D
 
-@export var health_component : HealthComponent
+@onready var health_component : HealthComponent = $"../HealthComponent"
 
-func _ready() -> void:
-	pass
+signal took_damage
 
 func TakeDamage( damage: float ) -> void:
+	took_damage.emit()
 	health_component.damage(damage)

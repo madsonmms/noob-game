@@ -1,5 +1,5 @@
 class_name AttackState
-extends ActorsConfig
+extends State
 
 func Enter():
 	#-- Lógica global --#
@@ -11,13 +11,13 @@ func Enter():
 	else:
 		var sprite_direction = sprite_direction("Attack", chasing_handler(actor, player).normalized())
 		actor.animation_handler.play("Attack", sprite_direction) # Toca a animação de ataque na direção correta
-		
+	
 	actor.animation_handler.animation_finished.connect(_on_attack_finished, CONNECT_ONE_SHOT) # Conecta ao sinal do AnimationHandler (se ainda não estiver conectado)
 	actor.hurt_box.monitoring = true #Liga o monitoramento da hurtbox
 	
 func Exit():
 	pass
-	
+
 func _on_attack_finished(anim_name: String):
 	if anim_name == "Attack":
 		actor.attacking = false
