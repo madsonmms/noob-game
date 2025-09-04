@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgnvqj6tcpjvm"]
+
+[ext_resource type="Script" uid="uid://bswe0ri1f1qw5" path="res://Itens/Weapons/Sword/sword.gd" id="1_xiahq"]
+[ext_resource type="PackedScene" uid="uid://dvjqasjid6con" path="res://Utilities/Components/Combat/HurtBox/HurtBoxComponent.tscn" id="2_xiahq"]
+
+[node name="Sword" type="Node2D"]
+script = ExtResource("1_xiahq")
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("2_xiahq")]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtBoxComponent"]
+position = Vector2(0, -8)
+polygon = PackedVector2Array(-16, -8, 0, -8, 16, -8, 16, 8, 0, 0, -16, 8)

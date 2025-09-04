@@ -1,7 +1,7 @@
 class_name Player1
 extends CharacterBody2D
 
-@export var hurt_box : HurtBoxComponent
+@export var weapon : Sword
 @export var animation_handler : AnimationHandler
 @onready var sprite : Sprite2D = $Sprite2D
 
