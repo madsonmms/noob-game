@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cw81t0e3k7my"]
+[gd_scene load_steps=24 format=3 uid="uid://cw81t0e3k7my"]
 
 [ext_resource type="Script" uid="uid://d8nqx0l1k3v6" path="res://Player/Scripts/player.gd" id="1_gwnis"]
 [ext_resource type="Texture2D" uid="uid://dksdsj84raeik" path="res://Player/Sprites/Player.png" id="2_4ntmi"]
@@ -13,6 +13,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x3vf3"]
+radius = 15.5242
 
 [sub_resource type="Animation" id="Animation_fhl08"]
 length = 0.001
@@ -204,6 +207,13 @@ animation_handler = NodePath("AnimationHandler")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_onrkg")
+
+[node name="DetectionArea" type="Area2D" parent="." groups=["Players"]]
+collision_mask = 272
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_x3vf3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0.5, -8)

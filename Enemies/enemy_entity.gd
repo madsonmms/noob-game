@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var animation_handler : AnimationHandler = $AnimationHandler
 @onready var state_machine : StateMachine = $StateMachine
 
-@onready var hurt_box: HurtBoxComponent = $HurtBoxComponent
+@onready var hurtbox: HurtBoxComponent = $HurtBoxComponent
 @onready var health_component : HealthComponent = $HealthComponent
 
 

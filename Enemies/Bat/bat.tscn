@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cb6x552wrjkr2"]
+[gd_scene load_steps=46 format=3 uid="uid://cb6x552wrjkr2"]
 
 [ext_resource type="Script" uid="uid://dlicglw5uxutu" path="res://Enemies/Bat/bat.gd" id="1_cuo72"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="2_cuo72"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://d0xpp4b411l0s" path="res://Enemies/Bat/Sprite/Hit/SimpleEnemies Bat_Hit Spritesheet.png" id="6_jdi48"]
 [ext_resource type="Script" uid="uid://bahndge2tjscc" path="res://Utilities/StateMachine/States/attack.gd" id="10_0e3sx"]
 [ext_resource type="PackedScene" uid="uid://dvjqasjid6con" path="res://Utilities/Components/Combat/HurtBox/HurtBoxComponent.tscn" id="10_gyfm6"]
+[ext_resource type="PackedScene" uid="uid://c5w17qn3fgejm" path="res://Utilities/Components/Combat/Chasing/ChasingComponent.tscn" id="10_jdi48"]
 [ext_resource type="Script" uid="uid://ba8dvateye5in" path="res://Utilities/StateMachine/States/EnemyStates/chasing.gd" id="10_nm5cg"]
 [ext_resource type="Script" uid="uid://bnfxpfnqpgckl" path="res://Utilities/StateMachine/States/EnemyStates/wander.gd" id="11_0e3sx"]
 [ext_resource type="Script" uid="uid://dy1k84ncp5hsn" path="res://Utilities/Components/Combat/Attack/attack_component.gd" id="11_gyfm6"]
@@ -434,6 +435,9 @@ states/Wander/node = SubResource("AnimationNodeBlendSpace1D_0e3sx")
 states/Wander/position = Vector2(361, 100)
 transitions = ["Start", "Wander", SubResource("AnimationNodeStateMachineTransition_6tcbb"), "Wander", "Attack", SubResource("AnimationNodeStateMachineTransition_qbvxn"), "Attack", "Wander", SubResource("AnimationNodeStateMachineTransition_t45ym"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_m3j8c"), "Wander", "Death", SubResource("AnimationNodeStateMachineTransition_b5q6i")]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3j8c"]
+radius = 90.05
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jdi48"]
 radius = 8.0
 
@@ -508,6 +512,16 @@ damage = 2.0
 knockback = true
 metadata/_custom_type_script = "uid://dy1k84ncp5hsn"
 
+[node name="ChasingComponent" parent="." instance=ExtResource("10_jdi48")]
+
+[node name="DetectionArea" type="Area2D" parent="ChasingComponent"]
+collision_layer = 256
+collision_mask = 17
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChasingComponent/DetectionArea"]
+shape = SubResource("CircleShape2D_m3j8c")
+
 [node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("attack_component") instance=ExtResource("10_gyfm6")]
 monitoring = false
 monitorable = false
@@ -528,13 +542,9 @@ position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_nm5cg")
 debug_color = Color(0.680629, 0.502826, 0.0517694, 0.42)
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("actor", "initial_state", "attack_component", "hurtbox_component", "hitbox_component")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_e1rno")
-actor = NodePath("..")
 initial_state = NodePath("WanderState")
-attack_component = NodePath("../AttackComponent")
-hurtbox_component = NodePath("../HurtBoxComponent")
-hitbox_component = NodePath("../HitBoxComponent")
 metadata/_custom_type_script = "uid://baiyenv70sm3x"
 
 [node name="ActorsConfig" type="Node" parent="StateMachine"]
