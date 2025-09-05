@@ -21,8 +21,6 @@ func _ready() -> void:
 			
 		initial_state.Enter()
 		current_state = initial_state
-		
-		print_debug(current_state)
 	#if hitbox_component:
 		#hitbox_component.took_damage.connect(_on_took_damage)
 		

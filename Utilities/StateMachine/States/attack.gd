@@ -2,7 +2,6 @@ class_name AttackState
 extends State
 
 func Enter():
-	print_debug("Entrei!")
 	#-- Lógica global --#
 	actor.velocity = Vector2.ZERO #Travar movimento enquanto ataca
 	
@@ -11,6 +10,7 @@ func Enter():
 		actor.animation_handler.play("Attack", actor.last_direction) # Toca a animação de ataque na direção correta
 		actor.weapon.hurt_box.monitoring = true #Liga o monitoramento da hurtbox
 	elif actor is not Player1:
+		actor.attacking = true
 		var sprite_direction = sprite_direction("Attack", chasing_handler(actor, player).normalized())
 		actor.animation_handler.play("Attack", sprite_direction) # Toca a animação de ataque na direção correta
 		actor.hurt_box.monitoring = true #Liga o monitoramento da hurtbox
