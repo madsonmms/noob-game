@@ -1,9 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://cw81t0e3k7my"]
+[gd_scene load_steps=23 format=3 uid="uid://cw81t0e3k7my"]
 
 [ext_resource type="Script" uid="uid://d8nqx0l1k3v6" path="res://Player/Scripts/player.gd" id="1_gwnis"]
 [ext_resource type="Texture2D" uid="uid://dksdsj84raeik" path="res://Player/Sprites/Player.png" id="2_4ntmi"]
 [ext_resource type="Script" uid="uid://5yv0jlfyb8l1" path="res://Utilities/StateMachine/States/idle.gd" id="4_k53q1"]
-[ext_resource type="PackedScene" uid="uid://dgnvqj6tcpjvm" path="res://Itens/Weapons/Sword/Sword.tscn" id="5_apopc"]
 [ext_resource type="Script" uid="uid://d4fcl4s638pug" path="res://Utilities/StateMachine/States/walk.gd" id="5_k53q1"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="5_od3ui"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bgk6c5ddeayb8" path="res://Player/Animations/player_animation_states.tres" id="5_x3vf3"]
@@ -194,12 +193,11 @@ _data = {
 &"run_up": SubResource("Animation_x3vf3")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon", "animation_handler") groups=["Actors", "Players"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_handler") groups=["Actors", "Players"]]
 collision_mask = 16
 motion_mode = 1
 wall_min_slide_angle = 0.174533
 script = ExtResource("1_gwnis")
-weapon = NodePath("Sword")
 animation_handler = NodePath("AnimationHandler")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -232,8 +230,6 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/Attack/blend_position = Vector2(0.0573409, 0.632287)
 parameters/Idle/blend_position = Vector2(-0.0119722, -0.0941705)
 parameters/Walk/blend_position = Vector2(0, 0)
-
-[node name="Sword" parent="." instance=ExtResource("5_apopc")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_5htga")]
 

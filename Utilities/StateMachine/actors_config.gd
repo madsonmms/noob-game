@@ -50,12 +50,14 @@ func check_distance():
 #Pega o nome do sprite atual para poder fazer as outras funções
 func _get_sprite_name(name : String) -> Sprite2D:
 	
-	var sprites = actor.sprites
-	
-	if sprites:
-		for s in sprites:
-			if s.name == name:
-				return s
+	if actor is not Player1:
+		
+		var sprites = actor.sprites
+		
+		if sprites:
+			for s in sprites:
+				if s.name == name:
+					return s
 		
 	return null
 
@@ -66,11 +68,21 @@ func show_sprite(name: String):
 #Seta a sprite para a direção correta durante todo o estado
 func sprite_direction(name : String, direction : Vector2 = Vector2.LEFT ):
 	
-	var sprite = _get_sprite_name(name)
-	
-	if direction.x < 0:
-		sprite.scale.x = -1
-	else:
-		sprite.scale.x = 1
+	if actor is not Player1:
+		var sprite = _get_sprite_name(name)
 		
-	return direction
+		if direction.x < 0:
+			sprite.scale.x = -1
+		else:
+			sprite.scale.x = 1
+			
+		return direction
+	elif actor is Player1 and player.weapon:
+		var sprite = _get_sprite_name(name)
+		
+		if direction.x < 0:
+			sprite.scale.x = -1
+		else:
+			sprite.scale.x = 1
+			
+		return direction
