@@ -194,12 +194,12 @@ _data = {
 &"run_up": SubResource("Animation_x3vf3")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("weapon", "animation_handler") groups=["Actors", "Players"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animation_handler") groups=["Actors", "Players"]]
 collision_mask = 16
 motion_mode = 1
 wall_min_slide_angle = 0.174533
 script = ExtResource("1_gwnis")
-weapon = NodePath("Sword")
+hurt_box = null
 animation_handler = NodePath("AnimationHandler")
 
 [node name="Camera2D" type="Camera2D" parent="."]

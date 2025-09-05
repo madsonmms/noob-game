@@ -1,14 +1,16 @@
 class_name HurtBoxComponent extends Area2D
 
-#@onready var attack_component : AttackComponent = $"../AttackComponent"
-@onready var weapon : Sword = get_parent()
+@export var attack_component : AttackComponent
+@export var weapon : Sword
 
 
 func _ready() -> void:
-	area_entered.connect( AreaEntered )
+	if weapon || attack_component:
+		area_entered.connect( AreaEntered )
 	pass
 
 func AreaEntered( area : Area2D ) -> void:
-	if area is HitBoxComponent:
+	if area is HitBoxComponent and weapon:
 		area.TakeDamage( weapon.damage )
-	pass
+	else:
+		area.TakeDamage( attack_component.damage )

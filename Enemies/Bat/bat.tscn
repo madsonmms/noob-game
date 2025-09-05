@@ -508,9 +508,10 @@ damage = 2.0
 knockback = true
 metadata/_custom_type_script = "uid://dy1k84ncp5hsn"
 
-[node name="HurtBoxComponent" parent="." instance=ExtResource("10_gyfm6")]
+[node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("attack_component") instance=ExtResource("10_gyfm6")]
 monitoring = false
 monitorable = false
+attack_component = NodePath("../AttackComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
 position = Vector2(16, -8)

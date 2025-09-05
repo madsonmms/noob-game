@@ -8,25 +8,30 @@ func Enter():
 	
 	if actor is Player1:
 		actor.animation_handler.play("Attack", actor.last_direction) # Toca a animação de ataque na direção correta
+		actor.weapon.hurt_box.monitoring = true #Liga o monitoramento da hurtbox
 	else:
 		var sprite_direction = sprite_direction("Attack", chasing_handler(actor, player).normalized())
 		actor.animation_handler.play("Attack", sprite_direction) # Toca a animação de ataque na direção correta
+		actor.hurt_box.monitoring = true #Liga o monitoramento da hurtbox
 	
 	actor.animation_handler.animation_finished.connect(_on_attack_finished, CONNECT_ONE_SHOT) # Conecta ao sinal do AnimationHandler (se ainda não estiver conectado)
-	actor.weapon. = true #Liga o monitoramento da hurtbox
+	
 	
 func Exit():
 	pass
 
 func _on_attack_finished(anim_name: String):
-	if anim_name == "Attack":
+	if anim_name == "Attack" and actor is Player1:
+		actor.attacking = false
+		actor.weapon.hurt_box.monitoring = false
+	else:
 		actor.attacking = false
 		actor.hurt_box.monitoring = false
-		
-		if actor is Player1:
-			if actor.direction != Vector2.ZERO:
-				emit_signal("Transitioned", self, "WalkState")
-			else:
-				emit_signal("Transitioned", self, "IdleState")
+	
+	if actor is Player1:
+		if actor.direction != Vector2.ZERO:
+			emit_signal("Transitioned", self, "WalkState")
 		else:
-			check_distance()
+			emit_signal("Transitioned", self, "IdleState")
+	else:
+		check_distance()

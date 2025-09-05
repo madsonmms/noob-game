@@ -26,16 +26,16 @@ func get_direction() -> Vector2:
 func UpdateDirection(new_dir : Vector2) -> void:
 	match new_dir:
 		Vector2.DOWN:
-			hurt_box.rotation_degrees = 180
-			hurt_box.position.y = -8.0
+			weapon.hurt_box.rotation_degrees = 180
+			weapon.hurt_box.position.y = -8.0
 		Vector2.UP:
-			hurt_box.rotation_degrees = 0
+			weapon.hurt_box.rotation_degrees = 0
 		Vector2.LEFT:
-			hurt_box.rotation_degrees = -90
+			weapon.hurt_box.rotation_degrees = -90
 		Vector2.RIGHT:
-			hurt_box.rotation_degrees = 90
+			weapon.hurt_box.rotation_degrees = 90
 		Vector2.ZERO:
-			hurt_box.rotation_degrees = 0
+			weapon.hurt_box.rotation_degrees = 0
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
