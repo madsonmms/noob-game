@@ -446,6 +446,8 @@ radius = 8.0
 
 [node name="Bat" type="CharacterBody2D" groups=["Actors"]]
 scale = Vector2(-1, 1)
+collision_layer = 256
+collision_mask = 17
 script = ExtResource("1_cuo72")
 chasing_speed = 3.0
 
