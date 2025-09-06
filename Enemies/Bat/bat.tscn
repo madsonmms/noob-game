@@ -435,11 +435,11 @@ states/Wander/node = SubResource("AnimationNodeBlendSpace1D_0e3sx")
 states/Wander/position = Vector2(361, 100)
 transitions = ["Start", "Wander", SubResource("AnimationNodeStateMachineTransition_6tcbb"), "Wander", "Attack", SubResource("AnimationNodeStateMachineTransition_qbvxn"), "Attack", "Wander", SubResource("AnimationNodeStateMachineTransition_t45ym"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_m3j8c"), "Wander", "Death", SubResource("AnimationNodeStateMachineTransition_b5q6i")]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_m3j8c"]
-radius = 90.05
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_jdi48"]
 radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3j8c"]
+radius = 72.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nm5cg"]
 radius = 8.0
@@ -514,18 +514,6 @@ damage = 2.0
 knockback = true
 metadata/_custom_type_script = "uid://dy1k84ncp5hsn"
 
-[node name="ChasingComponent" parent="." instance=ExtResource("10_jdi48")]
-chasing_speed = 1.5
-
-[node name="DetectionArea" type="Area2D" parent="ChasingComponent"]
-collision_layer = 256
-collision_priority = 0.0
-monitorable = false
-priority = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ChasingComponent/DetectionArea"]
-shape = SubResource("CircleShape2D_m3j8c")
-
 [node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("attack_component") instance=ExtResource("10_gyfm6")]
 monitoring = false
 monitorable = false
@@ -535,6 +523,17 @@ attack_component = NodePath("../AttackComponent")
 position = Vector2(16, -8)
 shape = SubResource("CircleShape2D_jdi48")
 debug_color = Color(0.995593, 0, 0.202482, 0.42)
+
+[node name="ChasingComponent" parent="." instance=ExtResource("10_jdi48")]
+chasing_speed = 1.5
+
+[node name="DetectionArea" type="Area2D" parent="ChasingComponent"]
+collision_layer = 256
+collision_mask = 257
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChasingComponent/DetectionArea"]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_m3j8c")
 
 [node name="HitBoxComponent" parent="." instance=ExtResource("4_0e3sx")]
 collision_layer = 2
