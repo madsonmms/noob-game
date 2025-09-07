@@ -24,26 +24,26 @@ func _process(_delta: float):
 	player_position = player.global_position
 	actor_position = actor.global_position
 
-func chasing_handler(actor1, actor2):
-	var chaser = actor1
-	var chased = actor2
-	
-	if actor1 and actor2:
-		chaser.direction = chaser.global_position - chased.global_position
-		return chaser.direction
+#func chasing_handler(actor1, actor2):
+	#var chaser = actor1
+	#var chased = actor2
+	#
+	#if actor1 and actor2:
+		#chaser.direction = chaser.global_position - chased.global_position
+		#return chaser.direction
 
 func check_distance():
 	
-	var direction : Vector2
-
-	direction = chasing_handler(actor, player)
+	#var direction : Vector2
+#
+	#direction = chasing_handler(actor, player)
 	
-	if direction and direction.length() <= 20 and actor.state_machine.has_state("attackstate"):
-		emit_signal("Transitioned", self, "AttackState")
-	if direction and direction.length() >= 50:
-		emit_signal("Transitioned", self, "WanderState")
-	if direction and direction.length() > 20 and direction.length() < 50:
-		emit_signal("Transitioned", self, "ChasingState")
+	#if direction and direction.length() <= 20 and actor.state_machine.has_state("attackstate"):
+		#emit_signal("Transitioned", self, "AttackState")
+	#if direction and direction.length() >= 50:
+		#emit_signal("Transitioned", self, "WanderState")
+	#if direction and direction.length() > 20 and direction.length() < 50:
+		#emit_signal("Transitioned", self, "ChasingState")
 		
 	return true
 

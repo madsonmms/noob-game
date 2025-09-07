@@ -34,7 +34,7 @@ func Physics_Update(_delta: float) -> void:
 	
 	actor.animation_handler.play("Wander", sprite_direction)
 	
-	if chasing_handler(actor, player).length() < 50:
-		emit_signal("Transitioned", self, "ChasingState")
-	elif actor.dead:
-		emit_signal("Transitioned", self, "DeaadState")
+	#if chasing_handler(actor, player).length() < 50:
+		#emit_signal("Transitioned", self, "ChasingState")
+	#elif actor.dead:
+		#emit_signal("Transitioned", self, "DeaadState")

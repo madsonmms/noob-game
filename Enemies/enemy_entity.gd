@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var hurtbox: HurtBoxComponent = $HurtBoxComponent
 @onready var health_component : HealthComponent = $HealthComponent
 
+var components : Dictionary = {}
 
 var direction : Vector2 = Vector2.DOWN
 var last_direction : Vector2 = Vector2.DOWN
@@ -16,6 +17,12 @@ var last_direction : Vector2 = Vector2.DOWN
 var attacking : bool = false
 var dead = false
 var hit = false
+
+func _ready() -> void:
+	for child in get_children():
+		if child is Node and "Component" in child.name:
+			register_component(child.name, child)
+			print_debug(child)
 
 func _physics_process(_delta: float) -> void:
 	if direction != Vector2.ZERO:
@@ -29,3 +36,10 @@ func _is_dead() -> void:
 
 func drop() -> void:
 	queue_free()
+
+#Components Control
+func register_component(name : String, comp : Node):
+	components[name] = comp
+
+func get_component(name : String) -> Node:
+	return components.get(name, null)

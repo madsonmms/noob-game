@@ -3,7 +3,7 @@ extends Node
 
 @export var initial_state : State
 
-@onready var actor : CharacterBody2D = get_parent()
+#@onready var actor : CharacterBody2D = get_parent()
 
 var current_state : State
 var states : Dictionary = {}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cb6x552wrjkr2"]
+[gd_scene load_steps=46 format=3 uid="uid://cb6x552wrjkr2"]
 
 [ext_resource type="Script" uid="uid://dlicglw5uxutu" path="res://Enemies/Bat/bat.gd" id="1_cuo72"]
 [ext_resource type="Script" uid="uid://drje8wrjhp50u" path="res://Utilities/Handlers/animation_handler.gd" id="2_cuo72"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://drj5vdnaweutt" path="res://Enemies/Bat/Sprite/Death/SimpleEnemies Bat_Death Spritesheet.png" id="5_gyfm6"]
 [ext_resource type="Script" uid="uid://baiyenv70sm3x" path="res://Utilities/StateMachine/state_machine.gd" id="6_e1rno"]
 [ext_resource type="Texture2D" uid="uid://d0xpp4b411l0s" path="res://Enemies/Bat/Sprite/Hit/SimpleEnemies Bat_Hit Spritesheet.png" id="6_jdi48"]
-[ext_resource type="Script" uid="uid://bi8wjatvutsd1" path="res://Utilities/Handlers/sprite_handler.gd" id="8_m3j8c"]
 [ext_resource type="Script" uid="uid://bahndge2tjscc" path="res://Utilities/StateMachine/States/attack.gd" id="10_0e3sx"]
 [ext_resource type="PackedScene" uid="uid://dvjqasjid6con" path="res://Utilities/Components/Combat/HurtBox/HurtBoxComponent.tscn" id="10_gyfm6"]
 [ext_resource type="PackedScene" uid="uid://c5w17qn3fgejm" path="res://Utilities/Components/Combat/Chasing/ChasingComponent.tscn" id="10_jdi48"]
@@ -491,11 +490,6 @@ actor = NodePath("..")
 animation_tree = NodePath("../AnimationTree")
 animation_player = NodePath("../AnimationPlayer")
 metadata/_custom_type_script = "uid://drje8wrjhp50u"
-
-[node name="SpriteHandler" type="Node" parent="." node_paths=PackedStringArray("sprites")]
-script = ExtResource("8_m3j8c")
-sprites = [NodePath("../Idle"), NodePath("../AttackWindUp"), NodePath("../Attack"), NodePath("../Death"), NodePath("../Hit")]
-metadata/_custom_type_script = "uid://bi8wjatvutsd1"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

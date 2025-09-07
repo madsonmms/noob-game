@@ -5,7 +5,7 @@ class_name ChasingComponent
 @export var always_follow_target : bool = false
 @export var target_path : NodePath #Para pets
 
-@onready var nav_agent : NavigationAgent2D = $NavigationAgent2D as NavigationAgent2D
+@onready var nav_agent : NavigationAgent2D = $NavigationAgent2D
 @onready var timer : Timer = $Timer
 
 var pursuer : Node = null
@@ -24,7 +24,8 @@ func _ready():
 
 func _process(_delta : float):
 	
-	var direction = to_local(nav_agent.get_next_path_position()).normalized()
+	var direction = (nav_agent.get_next_path_position() - pursuer.global_position).normalized() # use isso para chasing
+	#var direction = to_local(nav_agent.getget_next_path_position()).normalized() use isso para following
 	
 	if detection_area:
 		
@@ -32,9 +33,9 @@ func _process(_delta : float):
 			detection_area.area_entered.disconnect(_on_area_entered)
 		detection_area.area_entered.connect(_on_area_entered)
 		
-		if detection_area.area_exited.is_connected(_on_area_entered):
-			detection_area.area_exited.disconnect(_on_area_entered)
-			detection_area.area_exited.connect(_on_area_exited)
+		if detection_area.area_exited.is_connected(_on_area_exited):
+			detection_area.area_exited.disconnect(_on_area_exited)
+		detection_area.area_exited.connect(_on_area_exited)
 		
 	if target and pursuer:
 		pursuer.velocity = direction * pursuer.move_speed * chasing_speed
@@ -42,17 +43,16 @@ func _process(_delta : float):
 		
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Players") || direction:
+	if area.is_in_group("Players"):
 		target = area
 
 func _on_area_exited(area: Area2D) -> void:
 	if target == area and not always_follow_target:
-		target == null
+		target = null
 
 func make_path() -> void:
 	if target:
 		nav_agent.target_position = target.global_position
-		print_debug(nav_agent.target_position)
 
 func _on_timer_timeout() -> void:
 	make_path()
