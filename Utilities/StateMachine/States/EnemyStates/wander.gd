@@ -4,7 +4,18 @@ extends State
 var wander_direction : Vector2
 var wander_time : float
 
+var chasing_component : ChasingComponent
+
 func Enter():
+	print_debug("entered wandering")
+	
+	chasing_component = actor.get_component("ChasingComponent")
+	
+	if chasing_component:
+		if chasing_component.target_detected.is_connected(_on_target_detected):
+			chasing_component.target_detected.disconnect(_on_target_detected)
+		chasing_component.target_detected.connect(_on_target_detected)
+	
 	_randomize_wander()
 	pass
 	
@@ -33,8 +44,11 @@ func Physics_Update(_delta: float) -> void:
 	actor.move_and_slide()
 	
 	actor.animation_handler.play("Wander", sprite_direction)
-	
-	#if chasing_handler(actor, player).length() < 50:
-		#emit_signal("Transitioned", self, "ChasingState")
-	#elif actor.dead:
-		#emit_signal("Transitioned", self, "DeaadState")
+
+func _on_target_detected() -> void:
+	print_debug("target detected")
+	emit_signal("Transitioned", self, "ChasingState")
+
+func _on_target_lost() -> void:
+	# Se perder o alvo, continua no wander sem transição
+	pass

@@ -2,6 +2,7 @@ class_name AttackState
 extends State
 
 func Enter():
+	print_debug("entered attack")
 	#-- Lógica global --#
 	actor.velocity = Vector2.ZERO #Travar movimento enquanto ataca
 	

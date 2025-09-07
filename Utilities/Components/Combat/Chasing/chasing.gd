@@ -13,6 +13,9 @@ var target : Node = null
 var detection_area : Area2D
 var direction = null
 
+signal target_detected()
+signal target_lost()
+
 func _ready():
 	make_path()
 	pursuer = get_parent()
@@ -44,10 +47,12 @@ func _process(_delta : float):
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Players"):
+		emit_signal("target_detected")
 		target = area
 
 func _on_area_exited(area: Area2D) -> void:
 	if target == area and not always_follow_target:
+		emit_signal("target_lost")
 		target = null
 
 func make_path() -> void:

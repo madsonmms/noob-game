@@ -37,6 +37,7 @@ func _is_dead() -> void:
 		await state_machine.transition_to("DeathState")
 
 func drop() -> void:
+	print_debug("10 moedas")
 	queue_free()
 
 
