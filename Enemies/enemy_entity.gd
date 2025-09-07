@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var health_component : HealthComponent = $HealthComponent
 
 var components : Dictionary = {}
+var handlers : Dictionary = {}
 
 var direction : Vector2 = Vector2.DOWN
 var last_direction : Vector2 = Vector2.DOWN
@@ -22,7 +23,8 @@ func _ready() -> void:
 	for child in get_children():
 		if child is Node and "Component" in child.name:
 			register_component(child.name, child)
-			print_debug(child)
+		elif child is Node and "Handler" in child.name:
+			register_handlers(child.name, child)
 
 func _physics_process(_delta: float) -> void:
 	if direction != Vector2.ZERO:
@@ -36,6 +38,14 @@ func _is_dead() -> void:
 
 func drop() -> void:
 	queue_free()
+
+
+#Handlers Control
+func register_handlers(name : String, hand : Node):
+	handlers[name] = hand
+
+func get_handler(name : String) -> Node:
+	return handlers.get(name, null)
 
 #Components Control
 func register_component(name : String, comp : Node):
