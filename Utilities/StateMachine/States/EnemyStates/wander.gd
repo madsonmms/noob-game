@@ -7,8 +7,6 @@ var wander_time : float
 var chasing_component : ChasingComponent
 
 func Enter():
-	print_debug("entered wandering")
-	
 	chasing_component = actor.get_component("ChasingComponent")
 	
 	if chasing_component:

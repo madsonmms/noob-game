@@ -2,6 +2,7 @@ extends Node2D
 class_name ChasingComponent
 
 @export var chasing_speed : float = 1.0
+@export var desired_distance : float = 20.0
 @export var always_follow_target : bool = false
 @export var target_path : NodePath #Para pets
 
@@ -15,23 +16,27 @@ var direction = null
 
 signal target_detected()
 signal target_lost()
+signal target_in_range()
 
 func _ready():
 	make_path()
 	pursuer = get_parent()
 	detection_area = $DetectionArea if has_node("DetectionArea") else null
+	nav_agent.target_desired_distance = desired_distance
 	
 	#Para pets ou coisas assim
 	if always_follow_target and target_path != NodePath():
 		target = get_node(target_path)
+		
+	nav_agent.target_reached.connect(_on_desired_distance_reached)
 
 func _process(_delta : float):
 	
 	var direction = (nav_agent.get_next_path_position() - pursuer.global_position).normalized() # use isso para chasing
 	#var direction = to_local(nav_agent.getget_next_path_position()).normalized() use isso para following
 	
+	#Atualiza o signal de detecção de área
 	if detection_area:
-		
 		if detection_area.area_entered.is_connected(_on_area_entered):
 			detection_area.area_entered.disconnect(_on_area_entered)
 		detection_area.area_entered.connect(_on_area_entered)
@@ -54,6 +59,10 @@ func _on_area_exited(area: Area2D) -> void:
 	if target == area and not always_follow_target:
 		emit_signal("target_lost")
 		target = null
+
+func _on_desired_distance_reached() -> void:
+	pursuer.attacking = true
+	emit_signal("target_in_range")
 
 func make_path() -> void:
 	if target:
